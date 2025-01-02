@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const fccTesting  = require('./freeCodeCamp/fcctesting.js');
@@ -10,13 +11,59 @@ const someOtherPlaintextPassword = 'pass123';
 
 
 //START_ASYNC -do not remove notes, place code between correct pair of notes.
-
+bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
+    if (err) {
+      console.error('Error hashing password:', err);
+    } else {
+      console.log('Hashed password (async):', hash);
+  
+      // Verify the password (optional)
+      bcrypt.compare(myPlaintextPassword, hash, (err, result) => {
+        if (err) {
+          console.error('Error comparing password:', err);
+        } else if (result) {
+          console.log('Password matches (async).');
+        } else {
+          console.log('Password does not match (async).');
+        }
+      });
+    }
+  });
 
 
 //END_ASYNC
+//START_SYNC
+try {
+  const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+  console.log('Hashed password (sync):', hash);
+
+  // Verify the password (optional)
+  const isMatch = bcrypt.compareSync(myPlaintextPassword, hash);
+  if (isMatch) {
+    console.log('Password matches (sync).');
+  } else {
+    console.log('Password does not match (sync).');
+  }
+} catch (err) {
+  console.error('Error hashing or comparing password (sync):', err);
+}
+//END_SYNC
 
 //START_SYNC
-
+try {
+    const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+    console.log('Hashed password (sync):', hash);
+  
+    // Verify the password (optional)
+    const isMatch = bcrypt.compareSync(myPlaintextPassword, hash);
+    if (isMatch) {
+      console.log('Password matches (sync).');
+    } else {
+      console.log('Password does not match (sync).');
+    }
+  } catch (err) {
+    console.error('Error hashing or comparing password (sync):', err);
+  }
 
 
 //END_SYNC
