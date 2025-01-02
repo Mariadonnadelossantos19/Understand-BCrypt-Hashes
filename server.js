@@ -66,6 +66,8 @@ try {
     console.error('Error hashing or comparing password (sync):', err);
   }
 */
+
+//
 const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
 console.log('Synchronous hash:', hash);
 
