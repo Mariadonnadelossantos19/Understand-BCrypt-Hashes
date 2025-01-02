@@ -50,7 +50,8 @@ try {
 //END_SYNC
 
 //START_SYNC
-try {
+/*/Hash and Compare Passwords Asynchronously
+/try {
     const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
     console.log('Hashed password (sync):', hash);
   
@@ -64,7 +65,13 @@ try {
   } catch (err) {
     console.error('Error hashing or comparing password (sync):', err);
   }
+*/
+const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+console.log('Synchronous hash:', hash);
 
+// Compare the plaintext password with the hash
+const result = bcrypt.compareSync(myPlaintextPassword, hash);
+console.log('Password comparison result (sync):', result);
 
 //END_SYNC
 
